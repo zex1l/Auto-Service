@@ -1,4 +1,5 @@
 # Дока
+## Стэк: React, TypeScript, Scss, Vite, Firebase
 
 1) Копируем репу через:
 ```bash
