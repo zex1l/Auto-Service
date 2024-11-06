@@ -1,9 +1,11 @@
+import RecordsModule from "../../modules/RecordsModule/RecordsModule";
 
 const Redocrds = () => {
     return (
-        <div>
-            Private
-        </div>
+        <>
+        <h1>Запись на техническое обслуживание</h1>
+        <RecordsModule/>   
+        </>
     );
 };
 

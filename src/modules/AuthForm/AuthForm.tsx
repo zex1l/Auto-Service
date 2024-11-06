@@ -1,13 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import css from "./AuthForm.module.scss";
 import { Form, Button, Input } from "antd";
-import {
-  browserSessionPersistence,
-  setPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import useAuth from "./useAuth";
+import Loader from "../../ui/Loader/Loader";
+import Error from "../../ui/Error/Error";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../store/store";
 
 interface IUser {
   email: string;
@@ -19,26 +16,12 @@ const AuthForm = () => {
     email: "",
     password: "",
   });
+  const {isLoading, onLoginUser, error, user} = useAuth()
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
 
-  const onHadleSubmit = async () => {
-    setPersistence(auth, browserSessionPersistence)
-      .then(async () => {
-        await signInWithEmailAndPassword(
-          auth,
-          userData.email,
-          userData.password
-        );
-        setUserData({
-          email: "",
-          password: "",
-        });
-        navigate("/records");
-      })
-      .catch((error) => {
-        console.error("Ошибка настройки сессии:", error);
-      });
+  const onHadleSubmit = () => {
+    onLoginUser(userData.email, userData.password)
   };
 
   const onHandleChange = (e: FormEvent<HTMLInputElement>) => {
@@ -48,6 +31,11 @@ const AuthForm = () => {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    console.log(user)
+    if(user) navigate('/records')
+  }, [user])
 
   return (
     <>
@@ -76,12 +64,13 @@ const AuthForm = () => {
             value={userData.password}
           />
         </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        {error && <Error text={error}/>}
+        <Form.Item>
           <Button onClick={onHadleSubmit} type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
+        {isLoading && <Loader/>}
       </Form>
     </>
   );

@@ -1,6 +1,8 @@
 body {
   margin: 0;
   height: 100%;
+  font-family: "Space Grotesk", sans-serif;
+  background-color: #fff;
 }
 
 ul {
@@ -11,8 +13,36 @@ ul {
 
 a {
   color: inherit;
+  margin: 0;
+  &:hover {
+    color: #000;
+  }
 }
 
 p {
   margin: 0;
+}
+
+.custom__link {
+  position: relative;
+  color: #000;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 2px; /* Толщина линии */
+    background-color: #000; /* Цвет линии */
+    transform: scaleX(0); /* Начальное состояние - линия скрыта */
+    transition: transform 0.3s; /* Плавный переход для линии */
+  }
+
+  &:hover {
+    color: #000; /* Цвет текста при наведении */
+  }
+
+  &:hover::after {
+    transform: scaleX(1); /* Линия появляется при наведении */
+  }
 }

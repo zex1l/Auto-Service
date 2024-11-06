@@ -3,13 +3,17 @@ import {
   useEffect,
 } from "react";
 import { auth } from "../store/store";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { User } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const [user, setUser] = useState<User | null>();
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setIsLoading(true)
@@ -32,11 +36,26 @@ const useAuth = () => {
       .catch((e) => console.log(e));
   }
 
+  const onLoginUser = (email:string, password:string) => {
+    setIsLoading(true)
+    signInWithEmailAndPassword(auth, email, password)
+    .then(
+      (user) => {
+        setUser(user.user)
+        navigate("/records");
+      }
+    )
+    .catch(() => setError("Неправильный email пользователя или пароль"))
+    setIsLoading(false)
+  }
+
 
 
   return {
     user,
+    error,
     isLoading,
+    onLoginUser,
     onHandleLogout
   }
 };

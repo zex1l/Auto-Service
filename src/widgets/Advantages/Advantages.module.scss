@@ -1,0 +1,47 @@
+.advantages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+
+  &__item {
+    width: 70%;
+    padding: 30px 60px;
+    background-color: #f3f3f3;
+    color: #191A23;
+    transition: all 0.2s ease;
+    border: 1px #191A23 solid;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
+
+    &_header {
+      display: flex;
+      gap: 10px;
+      font-size: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &_body {
+      display: none;
+      > hr {
+        margin: 15px 0;
+      }
+      >p {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.activeItem {
+  background-color: #191A23;
+  color: #fff;
+}
+
+.activeBody {
+  display: block;
+}

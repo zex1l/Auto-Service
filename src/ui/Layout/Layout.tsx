@@ -4,7 +4,7 @@ import CustomHeader from "../Header/CustomHeader";
 import css from './Layout.module.scss'
 import Container from "../Container/Container";
 
-const { Content, Footer } = AntLayout;
+const { Content } = AntLayout;
 
 const Layout = () => {
   return (
@@ -15,7 +15,6 @@ const Layout = () => {
             <Router/>
           </Container>
       </Content>
-      <Footer>Footer</Footer>
     </AntLayout>
   );
 };
