@@ -22,8 +22,8 @@ const RecordsModule = () => {
   return (
     <div className={css.recordsModule}>
       <div className={css.recordsModule__count}>Количесвто записей: {recordsData.length}</div>
-      <RecordsList records={recordsData} />
-      {isLoading ? <Loader /> : null}
+      
+      {isLoading ? <Loader /> : <RecordsList records={recordsData} />}
     </div>
   );
 };

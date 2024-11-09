@@ -1,8 +1,9 @@
 import { LoadingOutlined } from "@ant-design/icons";
+import css from './Loader.module.scss'
 
 const Loader = () => {
     return (
-        <div>
+        <div className={css.loader}>
             <LoadingOutlined style={{fontSize: 64}}/>
         </div>
     );

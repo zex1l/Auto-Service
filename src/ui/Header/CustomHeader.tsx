@@ -35,9 +35,11 @@ const CustomHeader = () => {
       </nav>
       <div className={css.header__btn}>
         <AddRecords />
-        <Button className="custom__link" onClickHandler={onHandleLogout}>
-          Выйти
-        </Button>
+        {user && (
+          <Button className="custom__link" onClickHandler={onHandleLogout}>
+            Выйти
+          </Button>
+        )}
       </div>
     </Header>
   );

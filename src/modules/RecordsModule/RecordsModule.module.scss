@@ -1,6 +1,9 @@
 .recordsModule {
     width: 100%;
-
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
     &__count {
         margin-bottom: 40px;
     }

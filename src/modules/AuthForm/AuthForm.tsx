@@ -16,12 +16,11 @@ const AuthForm = () => {
     email: "",
     password: "",
   });
-  const {isLoading, onLoginUser, error, user} = useAuth()
-  const navigate = useNavigate()
-
+  const { isLoading, onLoginUser, error, user } = useAuth();
+  const navigate = useNavigate();
 
   const onHadleSubmit = () => {
-    onLoginUser(userData.email, userData.password)
+    onLoginUser(userData.email, userData.password);
   };
 
   const onHandleChange = (e: FormEvent<HTMLInputElement>) => {
@@ -33,45 +32,52 @@ const AuthForm = () => {
   };
 
   useEffect(() => {
-    console.log(user)
-    if(user) navigate('/records')
-  }, [user])
+    console.log(user);
+    if (user) navigate("/records");
+  }, [user]);
 
   return (
     <>
       <h2>Вход</h2>
-      <Form className={css.form} layout="vertical">
-        <Form.Item
-          label="Имя"
-          name="email"
-          rules={[{ required: true, message: "Пожалуйста заполните это поле" }]}
-        >
-          <Input
-            onChange={onHandleChange}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Form className={css.form} layout="vertical">
+          <Form.Item
+            label="Имя"
             name="email"
-            value={userData.email}
-          />
-        </Form.Item>
+            rules={[
+              { required: true, message: "Пожалуйста заполните это поле" },
+            ]}
+          >
+            <Input
+              onChange={onHandleChange}
+              name="email"
+              value={userData.email}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Пароль"
-          name="password"
-          rules={[{ required: true, message: "Пожалуйста заполните это поле" }]}
-        >
-          <Input.Password
-            onChange={onHandleChange}
+          <Form.Item
+            label="Пароль"
             name="password"
-            value={userData.password}
-          />
-        </Form.Item>
-        {error && <Error text={error}/>}
-        <Form.Item>
-          <Button onClick={onHadleSubmit} type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-        {isLoading && <Loader/>}
-      </Form>
+            rules={[
+              { required: true, message: "Пожалуйста заполните это поле" },
+            ]}
+          >
+            <Input.Password
+              onChange={onHandleChange}
+              name="password"
+              value={userData.password}
+            />
+          </Form.Item>
+          {error && <Error text={error} />}
+          <Form.Item>
+            <Button onClick={onHadleSubmit} type="primary" htmlType="submit">
+              Войти
+            </Button>
+          </Form.Item>
+        </Form>
+      )}
     </>
   );
 };

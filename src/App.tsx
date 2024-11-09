@@ -1,13 +1,9 @@
 import Layout from "./ui/Layout/Layout";
 
-
-
-
 const App = () => {
-
   return (
     <>
-       <Layout/>
+      <Layout />
     </>
   );
 };
