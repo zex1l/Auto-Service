@@ -4,6 +4,7 @@ import PreviewPhoto from "../../assets/image/service-preview.png";
 import { List } from "antd";
 import ServiceSign from "../../widgets/ServiceSign/ServiceSign";
 import Advantages from "../../widgets/Advantages/Advantages";
+import useAuth from "../../modules/AuthForm/useAuth";
 
 const data = [
   'Возможность записаться на ТО в онлайн-режиме. Для этого на официальном сайте автосервиса предусмотрена специальная форма.',
@@ -14,8 +15,11 @@ const data = [
 ];
 
 const Home = () => {
+  const {contextHolder } = useAuth()
+
   return (
     <>
+          {contextHolder}
       <div className={css.home__widget}>
         <img src={PreviewPhoto} alt="Фото сервиса превью" />
         <p>Ремонт и профилактика автомобиля</p>

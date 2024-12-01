@@ -4,6 +4,8 @@ import { FC } from "react";
 import SignIn from "../pages/SignIn/SignIn";
 import Redocrds from "../pages/Records/Redocrds";
 import useAuth from "../modules/AuthForm/useAuth";
+import SignUp from "../pages/SignUp/SignUp";
+import { LK } from "../pages/LK/LK";
 
 interface RoutesProps {
   children?: React.ReactNode;
@@ -16,11 +18,13 @@ const Router: FC<RoutesProps> = ({ location }) => {
   return (
     <Routes location={location}>
       <Route path="/login" element={<SignIn />} />
+      <Route path="/signUp" element={<SignUp />} />
       <Route path="/" element={<Home />} />
+      <Route path="/lk" element={<LK />} />
       <Route path="*" element={<Home />} />
       <Route
         path="/records"
-        element={user ? <Redocrds /> : <Navigate to={"/login"} />}
+        element={user?.email === 'admin@mail.ru' ? <Redocrds /> : <Navigate to={"/login"} />}
       />
     </Routes>
   );

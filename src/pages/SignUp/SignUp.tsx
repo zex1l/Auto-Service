@@ -1,10 +1,10 @@
 import AuthForm from "../../modules/AuthForm/AuthForm";
-import css from './SignIn.module.scss'
+import css from './SignUp.module.scss'
 
 const SignIn = () => {
     return (
         <section className={css.signIn}>
-            <AuthForm type="sign-in"/>
+            <AuthForm type="sign-up"/>
         </section>
     );
 };

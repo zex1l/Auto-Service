@@ -3,4 +3,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    &__link {
+        margin-left: 20px;
+        &:hover {
+            color: rgb(77, 77, 74);
+        }
+    }
 }

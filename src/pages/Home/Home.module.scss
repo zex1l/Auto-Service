@@ -1,7 +1,7 @@
 .home {
   &__widget {
     position: absolute;
-    height: 800px;
+    height: 600px;
     background: #000;
     color: #ffffff;
     width: 100%;
@@ -12,7 +12,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%;
+      height: 600px;
       width: 100%;
       opacity: 0.3;
     }
@@ -31,19 +31,19 @@
   }
 
   &__content {
-        margin-top: 920px;
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
+    margin-top: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
 
-        &_title {
-          margin: 40px 0;
-        }
+    &_title {
+      margin: 40px 0;
+    }
 
-        &_list {
-          margin-bottom: 40px;
-        }
+    &_list {
+      margin-bottom: 40px;
+    }
   }
 
   &__slider {

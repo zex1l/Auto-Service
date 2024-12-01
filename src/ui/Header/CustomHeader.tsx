@@ -1,5 +1,5 @@
 import { Layout as AntLayout } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const { Header } = AntLayout;
 import css from "./CustomHeader.module.scss";
 import useAuth from "../../modules/AuthForm/useAuth";
@@ -22,11 +22,25 @@ const CustomHeader = () => {
               О нас
             </Link>
           </li>
-          {user && (
+          {user?.email === "admin@mail.ru" && (
             <>
               <li>
                 <Link className="custom__link" to={"/records"}>
                   Админ панель
+                </Link>
+              </li>
+            </>
+          )}
+          <li>
+            <Link className="custom__link" to={"/goods"}>
+              Товары и услуги
+            </Link>
+          </li>
+          {user && user?.email !== "admin@mail.ru" && (
+            <>
+              <li>
+                <Link className="custom__link" to={"/lk"}>
+                  Личный кабинет
                 </Link>
               </li>
             </>
@@ -40,9 +54,22 @@ const CustomHeader = () => {
             Выйти
           </Button>
         )}
+        {!user ? (
+         <RenderButton/>
+        ) : null}
       </div>
     </Header>
   );
 };
+
+const RenderButton = () => {
+  const path = location.pathname;
+  if(path === '/login') return null
+  return (
+    <Link to={"/login"}>
+    <Button className="custom__link">Войти</Button>
+  </Link>
+  )
+}
 
 export default CustomHeader;

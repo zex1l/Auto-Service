@@ -14,7 +14,7 @@ const Layout = () => {
           <Container>
             <Router/>
           </Container>
-      </Content>
+      </Content >
     </AntLayout>
   );
 };

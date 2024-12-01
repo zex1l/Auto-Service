@@ -5,7 +5,7 @@ import css from './Button.module.scss'
 interface ButtonProps {
     className?: string
     children: ReactElement | string
-    onClickHandler: () => void
+    onClickHandler ?: () => void
 }
 
 const Button:FC<ButtonProps> = ({children, className, onClickHandler}) => {

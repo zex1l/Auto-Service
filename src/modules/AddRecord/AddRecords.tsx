@@ -13,6 +13,10 @@ import { FormEvent, useState } from "react";
 import css from "./AddRecords.module.scss";
 import { addNewRecord } from "./api/api";
 import Button from "../../ui/Button/Button";
+import useAuth from "../AuthForm/useAuth";
+import { useNavigate } from "react-router-dom";
+import { IRecord } from "../RecordsModule/ui/RecordsList/RecordsList";
+import { onError, onSuccess } from "../../utils/noticeEvent";
 
 const { Option } = Select;
 
@@ -25,20 +29,10 @@ const AddRecords = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const [data, setData] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const onSuccess = () => {
-    messageApi.open({
-      type: "success",
-      content: "Вы успешно записались.",
-    });
-  };
-
-  const onError = () => {
-    messageApi.open({
-      type: "error",
-      content: "Произошла ошибка, повторите еще раз.",
-    });
-  };
+  const onOpenModalHandler = () => (!user ? navigate("/login") : openModal());
 
   const onChageData = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -64,13 +58,18 @@ const AddRecords = () => {
   };
 
   const onSubmitData = async () => {
-    const responce = await addNewRecord(data);
+    const responce = await addNewRecord({
+      ...data,
+      userId: user!.uid,
+      cost: "В процессе подсчета",
+      status: "В процессе",
+    } as IRecord);
     if (responce.status === 200) {
       closeModal();
-      onSuccess();
+      onSuccess("Вы успешно записались.", messageApi);
     } else {
       closeModal();
-      onError();
+      onError("Произошла ошибка, повторите еще раз.", messageApi);
     }
     setData({});
   };
@@ -78,7 +77,7 @@ const AddRecords = () => {
   return (
     <>
       {contextHolder}
-      <Button  onClickHandler={openModal} className="custom__link">
+      <Button onClickHandler={onOpenModalHandler} className="custom__link">
         Записаться в Автосервис
       </Button>
       <Modal
@@ -92,6 +91,7 @@ const AddRecords = () => {
         okText="Записаться"
         cancelText="Отменить"
         destroyOnClose
+        key="modal_add"
         footer={[
           <>
             <AntButton
@@ -126,30 +126,41 @@ const AddRecords = () => {
             className={css.form__item}
             name="name"
             label="Имя"
+            key="name"
             rules={[
               { required: true, message: "Поле обязательно к заполнению" },
             ]}
           >
-            <Input name="name" onChange={onChageData} />
+            <Input key="name" name="name" onChange={onChageData} />
           </Form.Item>
           <Form.Item
             className={css.form__item}
             name="contact"
             label="Контактный телефон"
+            key="contact"
             rules={[
-              { required: true, message: 'Пожалуйста, введите номер телефона!' },
               {
-                pattern:/^\+?[1-9]\d{1,14}$/,
-                message: 'Неверный формат номера телефона!',
+                required: true,
+                message: "Пожалуйста, введите номер телефона!",
+              },
+              {
+                pattern: /^\+?[1-9]\d{1,14}$/,
+                message: "Неверный формат номера телефона!",
               },
             ]}
           >
-            <Input name="contact" onChange={onChageData} type="tel"/>
+            <Input
+              key="contact"
+              name="contact"
+              onChange={onChageData}
+              type="tel"
+            />
           </Form.Item>
           <Form.Item
             className={css.form__item}
             name="data"
             label="Выберите дату"
+            key="data"
             rules={[
               { required: true, message: "Поле обязательно к заполнению" },
             ]}
@@ -160,6 +171,7 @@ const AddRecords = () => {
             className={css.form__item}
             name="typeOfService"
             label="Тип обслуживания"
+            key="typeOfService"
             rules={[
               { required: true, message: "Поле обязательно к заполнению" },
             ]}
@@ -168,6 +180,7 @@ const AddRecords = () => {
               placeholder="Выберите тип обслуживания"
               onChange={onSelectData}
               allowClear
+              key="typeOfService"
             >
               <Option value="ТО">Техническое обсуживание</Option>
             </Select>
