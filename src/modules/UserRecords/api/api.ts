@@ -19,7 +19,6 @@ export const cancelRecord = async (data:IRecord) => {
   try {
     const docRef = doc(db, "records", data.id);
     const response = await updateDoc(docRef, {...data, status: 'Отказ'});
-    console.log(response);
     return {
       status: 200,
     };

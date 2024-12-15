@@ -60,7 +60,6 @@ export const Goods = ({ className }: Props) => {
   const addToCart = async(id:string) => {
     dispatch(addCart(id))
     const data = await addBasketData(user!.uid, id )
-    console.log(data)
   }
 
   return (

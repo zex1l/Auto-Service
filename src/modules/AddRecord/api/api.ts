@@ -6,7 +6,6 @@ export const addNewRecord = async (data:IRecord) => {
   try {
     // Создаем новую запись в коллекции 'users'
     const docRef = await addDoc(collection(db, "records"), data);
-    console.log(docRef);
     return {
       status: 200,
     };
