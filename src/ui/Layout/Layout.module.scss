@@ -1,11 +1,46 @@
 .layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding-bottom: 40px;
-    background-color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff !important;
 }
 
 .content {
-    flex: 1;
+  flex: 1;
+}
+
+.sider {
+  width: 0px !important;
+  max-width: 0px !important;
+  min-width: 0px !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.sider__open {
+  max-width: 200px !important;
+  min-width: 200px !important;
+  width: 200px !important;
+  transition: all 0.3s ease;
+  padding: 60px 20px 20px 20px;
+}
+
+.nav {
+  opacity: 0;
+  transition: all 0.3s ease;
+  &__open {
+    opacity: 1;
   }
+}
+
+.header__link_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  >li {
+    font-size: 20px;
+  }
+}

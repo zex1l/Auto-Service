@@ -4,40 +4,32 @@
     justify-content: space-between;
     padding-top: 10px;
     padding-bottom: 10px;
-    height: 120px;
-    background-color: #ffffff;
-    color: #000000;
+    height: 80px;
+    background-color: #0f1223;
+    color: #fff;
     font-size: 16px;
     line-height: normal !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
 
-    &__navigate {
-        
+    &__burger {
+        cursor: pointer;
+    }
+
+    &__shopingCart {
+        cursor: pointer;
+        margin-right: 20px;
     }
 
     &__link_list {
         display: flex;
         align-items: center;
         gap: 20px;
+        
     }
 }
 
-.address__link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
 
-    &_messenger {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-
-        >img {
-            border-radius: 50%;
-        }
-    }
-}
 
 
 .header__btn {

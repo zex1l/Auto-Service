@@ -25,7 +25,7 @@ p {
 
 .custom__link {
   position: relative;
-  color: #000;
+  color: #fff;
   &::after {
     content: "";
     position: absolute;
@@ -33,16 +33,20 @@ p {
     bottom: -10px;
     width: 100%;
     height: 2px; /* Толщина линии */
-    background-color: #000; /* Цвет линии */
+    background-color: #fff; /* Цвет линии */
     transform: scaleX(0); /* Начальное состояние - линия скрыта */
     transition: transform 0.3s; /* Плавный переход для линии */
   }
 
   &:hover {
-    color: #000; /* Цвет текста при наведении */
+    color: #fff; /* Цвет текста при наведении */
   }
 
   &:hover::after {
     transform: scaleX(1); /* Линия появляется при наведении */
   }
+}
+
+img {
+  user-select: none;
 }

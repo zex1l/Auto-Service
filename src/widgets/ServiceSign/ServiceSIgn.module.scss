@@ -2,8 +2,7 @@
     align-self: center;
     width: 700px;
     background-color: #F3F3F3;
-    height: 347px;
-    padding: 60px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -11,8 +10,10 @@
     gap: 20px;
     border: 1px #000 solid;
     border-radius: 20px;
+    margin-bottom: 40px;
 
     &__title {
         font-size: 30;
+        text-align: left;
     }
 }

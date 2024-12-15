@@ -34,11 +34,12 @@
     margin-top: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
 
     &_title {
       margin: 40px 0;
+      width: 1000px;
     }
 
     &_list {

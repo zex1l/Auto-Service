@@ -21,7 +21,7 @@ const RecordsModule = () => {
     setRecordsData(responce);
     setIsLoading(false);
   };
-
+  console.log(recordsData)
   const onOpenModalHandler = (data: IRecord) => {
     setCurrentRecord(data.id);
     openModal();

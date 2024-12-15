@@ -1,0 +1,52 @@
+.goodsAndService {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 70px 0;
+
+  &__type {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+
+    &_link {
+      position: relative;
+      padding: 10px 15px;
+      color: black;
+      cursor: pointer;
+      font-size: 20px;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100%;
+        height: 2px; /* Толщина линии */
+        background-color: black; /* Цвет линии */
+        transform: scaleX(0); /* Начальное состояние - линия скрыта */
+        transition: transform 0.3s; /* Плавный переход для линии */
+      }
+
+
+      &:hover::after {
+        transform: scaleX(1); /* Линия появляется при наведении */
+      }
+
+      &-active {
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 2px; /* Толщина линии */
+            background-color: black; /* Цвет линии */
+            transform: scaleX(1); /* Начальное состояние - линия скрыта */
+            transition: transform 0.3s; /* Плавный переход для линии */
+          }
+      }
+    }
+  }
+}

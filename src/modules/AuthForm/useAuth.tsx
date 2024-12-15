@@ -9,12 +9,17 @@ import {
 import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { useAppDispatch } from "../../redux/store";
+import { resetCart } from "../../redux/slices/cartSlice";
+import { createBasket } from "../Goods/api/api";
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<User | null>();
   const [messageApi, contextHolder] = message.useMessage();
+
+  const dispatch = useAppDispatch()
 
   const onError = (text: string) => {
     messageApi.open({
@@ -51,6 +56,8 @@ const useAuth = () => {
     signOut(auth)
       .then(() => console.log("success"))
       .catch((e) => console.log(e));
+
+    dispatch(resetCart())
   };
 
   const onLoginUser = (email: string, password: string) => {
@@ -72,6 +79,7 @@ const useAuth = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
         setUser(user.user);
+        createBasket(user.user.uid)
         onSuccess("Вы успешно зарегистрировали аккаунт");
         navigate("/");
       })

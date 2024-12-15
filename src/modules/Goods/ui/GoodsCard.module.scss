@@ -1,0 +1,61 @@
+.goodCard {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__wrapper {
+    position: relative;
+    height: 192px;
+  }
+
+  &__img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+  }
+
+  &__content {
+    padding: 20px;
+
+    &_title {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    &_description {
+      color: gray;
+      margin-bottom: 30px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &_buttons {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    &_price {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+  }
+}
+
+//bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105
