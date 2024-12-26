@@ -1,46 +1,90 @@
-import { useAppSelector } from "../../redux/store";
-import { Product, products } from "../../modules/Goods/Goods";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { Product, products } from '../../modules/Goods/Goods';
+import { useEffect, useState } from 'react';
+import ProductCard from '../../modules/Goods/ui/GoodsCard';
+import css from './Basket.module.scss';
+import {
+  addCart,
+  deleteCart,
+  InitialStateType,
+} from '../../redux/slices/cartSlice';
+import { addBasketData, deleteBasketData } from '../../modules/Goods/api/api';
+import useAuth from '../../modules/AuthForm/useAuth';
 
 export const Basket = ({ className }: Props) => {
-  const [basketData, setBasketData] = useState<Product[]>([])
-    const data = useAppSelector(state => state.cart)
+  const [basketData, setBasketData] = useState<Product[]>([]);
+  const [dataMap, setDataMap] = useState<Map<string, number>>();
+  const data = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  const { user } = useAuth();
 
+  const getResultCost = (data: InitialStateType) => {
+    const result = data.goods.map((itemData) => {
+      return products.filter((itemProduct) => itemProduct.id === itemData)[0];
+    });
 
-  const getResultCost = () => {
-    let cost = 0
+    let cost = 0;
 
-    basketData.forEach(item => cost += item.price)
-    return cost
-  }
+    result.forEach((item) => (cost += item.price));
+    return cost;
+  };
 
   const filterData = () => {
-    const result = data.goods.map(itemData => {
-       return products.filter(itemProduct => itemProduct.id === itemData)[0]
-    })
+    const uniqData = data.goods.filter(function (item, pos) {
+      return data.goods.indexOf(item) == pos;
+    });
 
-    setBasketData(result)
-  }
+    const result = uniqData.map((itemData) => {
+      return products.filter((itemProduct) => itemProduct.id === itemData)[0];
+    });
+
+    setBasketData(result);
+
+    const map = new Map();
+    data.goods.forEach((item) => {
+      if (!map.has(item)) {
+        map.set(item, 1);
+      } else map.set(item, map.get(item) + 1);
+    });
+    setDataMap(map);
+  };
+
+  const addToCart = async (id: string) => {
+    dispatch(addCart(id));
+    await addBasketData(user!.uid, id);
+  };
+
+  const deleteToCart = async (id: string) => {
+    dispatch(deleteCart(id));
+    await deleteBasketData(user!.uid, id);
+  };
 
   useEffect(() => {
-    if(data) filterData()
-  }, [data])
+    if (data) filterData();
+  }, [data]);
 
-  return <div>
-    <h2>Корзина</h2>
-    <div>
-      {data && basketData.map((item, index) => (
-        <div key={index}>
-            <div>{item.title}</div>
-            <div>{item.price} ₽</div>
-        </div>
-      ))}
+  return (
+    <div className={css.basket}>
+      <h2>Корзина</h2>
+      <div className={css.basket__list}>
+        {data &&
+          dataMap &&
+          basketData.map((item, index) => (
+            <ProductCard
+              addGood={() => addToCart(item.id)}
+              deleteGood={() => deleteToCart(item.id)}
+              key={index}
+              {...item}
+            />
+          ))}
+      </div>
       <div>
         <h3>Итоговая цена</h3>
-        <div>{getResultCost()} ₽</div>
+        <div>{getResultCost(data)} ₽</div>
+        <div>{}</div>
       </div>
     </div>
-  </div>;
+  );
 };
 
 type Props = {

@@ -21,6 +21,9 @@
 
   &__content {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &_title {
       display: flex;
@@ -45,15 +48,15 @@
     justify-content: space-between;
 
     &_buttons {
-        display: flex;
-        align-items: center;
-        gap: 2px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
 
     &_price {
-        display: flex;
-        align-items: center;
-        gap: 2px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
   }
 }
