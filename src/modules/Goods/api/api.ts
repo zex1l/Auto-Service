@@ -32,7 +32,6 @@ export const addBasketData = async (userId: string, goodId: string) => {
   querySnapshot.forEach(async (doc) => {
     const result = doc.data() as BasketType;
 
-    console.log(doc.data());
     if (result.userId === userId) {
       data = {
         ...result,
@@ -72,7 +71,6 @@ export const deleteBasketData = async (userId: string, goodId: string) => {
       //@ts-expect-error
       goods: result.goods.filter((_, indexItem) => indexItem !== index),
     };
-
     return await updateDoc(basketRef, { ...data });
   }
 };

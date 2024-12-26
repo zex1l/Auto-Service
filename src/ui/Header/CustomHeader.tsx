@@ -24,7 +24,6 @@ const CustomHeader = ({ onOpenSider }: Props) => {
 
   const getUserBasket = async () => {
     const data: BasketType[] = (await getBasketData(user!.uid)) as BasketType[];
-    console.log(user!.uid);
     data &&
       dispatch(
         updateCart({ count: data[0].goods.length, goods: data[0].goods })

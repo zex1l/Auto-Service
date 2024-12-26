@@ -50,13 +50,13 @@ export const Basket = ({ className }: Props) => {
   };
 
   const addToCart = async (id: string) => {
-    dispatch(addCart(id));
     await addBasketData(user!.uid, id);
+    dispatch(addCart(id));
   };
 
   const deleteToCart = async (id: string) => {
-    dispatch(deleteCart(id));
     await deleteBasketData(user!.uid, id);
+    dispatch(deleteCart(id));
   };
 
   useEffect(() => {
@@ -73,6 +73,7 @@ export const Basket = ({ className }: Props) => {
             <ProductCard
               addGood={() => addToCart(item.id)}
               deleteGood={() => deleteToCart(item.id)}
+              count={dataMap.get(item.id)}
               key={index}
               {...item}
             />

@@ -57,13 +57,13 @@ export const Goods = ({ className }: Props) => {
   const { user } = useAuth();
 
   const addToCart = async (id: string) => {
-    dispatch(addCart(id));
     await addBasketData(user!.uid, id);
+    dispatch(addCart(id));
   };
 
   const deleteToCart = async (id: string) => {
-    dispatch(deleteCart(id));
     await deleteBasketData(user!.uid, id);
+    dispatch(deleteCart(id));
   };
 
   return (

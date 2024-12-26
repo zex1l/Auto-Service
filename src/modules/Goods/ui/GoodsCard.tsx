@@ -14,6 +14,7 @@ interface ProductCardProps {
   className?: string;
   addGood?: () => void;
   deleteGood?: () => void;
+  count?: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -26,6 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   className,
   addGood,
   deleteGood,
+  count,
 }) => {
   const [countGood, setCountGood] = useState<number>(0);
   const data = useAppSelector((state) => state.cart);
@@ -61,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             {typeof addGood === 'function' &&
               typeof deleteGood === 'function' &&
-              countGood !== 0 && (
+              Boolean(countGood) && (
                 <div>
                   <Button onClick={addGood}>+</Button>
                   <Button onClick={deleteGood}>-</Button>
@@ -71,7 +73,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <div className={css.goodCard__footer_price}>
             <span>{price} ₽</span>
           </div>
-          {countGood && <div>{countGood}шт</div>}
+          {Boolean(count) && <div>{count}шт</div>}
+          {Boolean(countGood) && !Boolean(count) && <div>{countGood}шт</div>}
         </div>
       </div>
     </div>
