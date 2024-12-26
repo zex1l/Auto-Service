@@ -1,9 +1,10 @@
 import ProductCard from './ui/GoodsCard';
 import css from './Goods.module.scss';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addCart, deleteCart } from '../../redux/slices/cartSlice';
 import { addBasketData, deleteBasketData } from './api/api';
 import useAuth from '../AuthForm/useAuth';
+import { useEffect, useState } from 'react';
 
 export interface Product {
   title: string;
@@ -55,6 +56,8 @@ export const products: Product[] = [
 export const Goods = ({ className }: Props) => {
   const dispatch = useAppDispatch();
   const { user } = useAuth();
+  const data = useAppSelector((state) => state.cart);
+  const [dataMap, setDataMap] = useState<Map<string, number>>();
 
   const addToCart = async (id: string) => {
     await addBasketData(user!.uid, id);
@@ -66,6 +69,20 @@ export const Goods = ({ className }: Props) => {
     dispatch(deleteCart(id));
   };
 
+  const getCountGood = () => {
+    const map = new Map();
+    data.goods.forEach((item) => {
+      if (!map.has(item)) {
+        map.set(item, 1);
+      } else map.set(item, map.get(item) + 1);
+    });
+    setDataMap(map);
+  };
+
+  useEffect(() => {
+    if (data) getCountGood();
+  }, [data]);
+
   return (
     <div className={css.goods}>
       {products.map((product, index) => (
@@ -74,6 +91,7 @@ export const Goods = ({ className }: Props) => {
           key={index}
           addGood={() => addToCart(product.id)}
           deleteGood={() => deleteToCart(product.id)}
+          count={dataMap?.get(product.id)}
           {...product}
         />
       ))}

@@ -29,21 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   deleteGood,
   count,
 }) => {
-  const [countGood, setCountGood] = useState<number>(0);
   const data = useAppSelector((state) => state.cart);
-
-  const getCountGoodBasket = () => {
-    let result = 0;
-    if (data) {
-      data.goods.forEach((goodId) => (goodId === id ? (result += 1) : null));
-    }
-
-    setCountGood(result);
-  };
-
-  useEffect(() => {
-    if (data) getCountGoodBasket();
-  }, [data]);
 
   return (
     <div className={cn(css.goodCard, className)}>
@@ -57,13 +43,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className={css.goodCard__footer}>
           <div className={css.goodCard__footer_buttons}>
-            {typeof onClick === 'function' && !countGood && (
-              <Button onClick={() => onClick(id)}>Купить</Button>
+            {typeof onClick === 'function' && !count && (
+              <Button onClick={() => onClick(id)}>В корзину</Button>
             )}
 
             {typeof addGood === 'function' &&
               typeof deleteGood === 'function' &&
-              Boolean(countGood) && (
+              Boolean(count) && (
                 <div>
                   <Button onClick={addGood}>+</Button>
                   <Button onClick={deleteGood}>-</Button>
@@ -74,7 +60,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <span>{price} ₽</span>
           </div>
           {Boolean(count) && <div>{count}шт</div>}
-          {Boolean(countGood) && !Boolean(count) && <div>{countGood}шт</div>}
         </div>
       </div>
     </div>
